@@ -1,0 +1,20 @@
+{
+    "nome": "Matheus",
+    "telefone": "3599869854",
+    "email": "matheus@gmail.com",
+    "idade": "30",
+    "endereco": {
+        "logradouro": "Avenida Terezinha Silos",
+        "numero": "640",
+        "bairro": "Diamatina",
+        "cidade": "São Sebastião do Paraíso",
+        "uf": "MG",
+        "cep": "37952000"
+    },
+    "filmes": [
+        "Gente Grande",
+        "Homem-Aranha",
+        "Vingadores",
+        "Liga da Justiça"
+    ]
+}
