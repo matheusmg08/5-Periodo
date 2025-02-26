@@ -29,16 +29,37 @@ exports.put = async (req, res, next) => {
     await con.query(sql, values);
     res.status(201).send("Alterado com sucesso!");
 }
-exports.delete = (req, res, next) => {
+exports.delete = async (req, res, next) => {
     let id = req.params.id;
-    res.status(200).send("rota delete " + id);
+    const con = await connect();
+    const sql = "DELETE FROM usuario " + " WHERE idusuario =?";
+    const values = [id];
+    await con.query(sql, values);
+    res.status(200).send("Deletado com sucesso! ");
 }
 exports.get = async (req, res, next) => {
     const con = await connect();
     const [rows] = await con.query("select * from usuario");
         res.status(200).send(rows);
 }
-exports.getById = (req, res, next) => {
+exports.getById = async (req, res, next) => {
+    //pega o id por parâmetro
     let id = req.params.id;
-    res.status(200).send("rota get com id " + id);
+    //abre conexão com o banco
+    const con = await connect();
+    try{
+        //executar o select com um critério para retornar apenas o registro com id
+        const sql = "SELECT * FROM usuario " + " WHERE idusuario =?";
+        const values = [id];
+        const [rows] = await con.query(sql, values);
+        //verifica se existe o usuário
+        if(rows.length != 0) {
+            res.status(200).send(rows);
+        }
+        else{
+            res.status(404).send("Not Found");
+        }
+    }catch(error){
+        res.status(500).send("Erro ao buscar usuario!");
+    }
 }
