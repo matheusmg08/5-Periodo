@@ -1,14 +1,29 @@
 const modalcadastro = new bootstrap.Modal(document.getElementById('modalcadastro'))
 
-function alterar(id){
+var idusuarioatual;
 
+function alterar(idusuario){
+    idusuarioatual = idusuario;
+    fetch("http://127.0.0.1:4444/usuario/"+idusuario)
+    .then(resp => resp.json())
+    .then(function(dados){
+        document.getElementById("nome").value = dados.nome;
+        document.getElementById("telefone").value = dados.telefone;
+        document.getElementById("email").value = dados.email;
+        modalcadastro.show();
+    });
 }
 
-function excluir(id){
+function excluir(idusuario){
+    desejaexcluir = confirm("Deseja excluir?");
+    if (!desejaexcluir){
+        return;
+    }
     fetch("http://127.0.0.1:4444/usuario/"+idusuario,
         {
             method: "DELETE"
         }
+
     ).then(function(){
         //recarrega a lista
         listar();
@@ -16,6 +31,7 @@ function excluir(id){
 }
 
 function novo(){
+    idusuarioatual = 0;
     document.getElementById("nome").value="";
     document.getElementById("telefone").value="";
     document.getElementById("email").value="";
@@ -34,9 +50,20 @@ function salvar(){
         senha: ""
     }
 
-    fetch("http://127.0.0.1:4444/usuario",
+    let url;
+    let metodo;
+    if (idusuarioatual > 0){
+        url = "http://127.0.0.1:4444/usuario/"+idusuarioatual;
+        metodo = "PUT";
+
+    } else{
+        url = "http://127.0.0.1:4444/usuario";
+        metodo = "POST";
+    }
+
+    fetch(url,
         {
-            method: "POST",
+            method: metodo,
             headers: {
                 "Content-Type": "application/json"
             },

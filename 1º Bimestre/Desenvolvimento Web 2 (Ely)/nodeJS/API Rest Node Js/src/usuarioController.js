@@ -54,7 +54,7 @@ exports.getById = async (req, res, next) => {
         const [rows] = await con.query(sql, values);
         //verifica se existe o usuário
         if(rows.length != 0) {
-            res.status(200).send(rows);
+            res.status(200).send(rows[0]);
         }
         else{
             res.status(404).send("Not Found");
