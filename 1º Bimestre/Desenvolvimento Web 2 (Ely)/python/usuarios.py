@@ -55,7 +55,7 @@ def usuarionovo():
         cursor.execute("INSERT INTO usuario (nome, email, senha, telefone) VALUES (%s, %s, %s, %s)", (nome, email, senha, telefone))
 
         conn.commit()
-        resp = jsonify({"message": "inserido"})
+        resp = jsonify({"message": "Usuário inserido com sucesso!"})
         resp.status_code = 200
         return resp
     except Exception as e:
@@ -64,9 +64,9 @@ def usuarionovo():
         cursor.close()
         conn.close()
 
-#para casa: implemente os métodos PUT e DELETE
-@usuario_bp.route('/usuario', methods=["POST"])
-def usuarionovo():
+#PUT
+@usuario_bp.route('/usuario/<id>', methods=["PUT"])
+def usuarioalterar(id):
     try:
         conn = connect_db()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
@@ -77,10 +77,10 @@ def usuarionovo():
         email = usuario['email']
         senha = usuario['senha']
         telefone = usuario['telefone']
-        cursor.execute("INSERT INTO usuario (nome, email, senha, telefone) VALUES (%s, %s, %s, %s)", (nome, email, senha, telefone))
+        cursor.execute("UPDATE usuario set nome = %s, email = %s, senha = %s, telefone = %s WHERE idusuario = %s " ,(nome, email, senha, telefone, id))
 
         conn.commit()
-        resp = jsonify({"message": "inserido"})
+        resp = jsonify({"message": "Usuário alterado com sucesso!"})
         resp.status_code = 200
         return resp
     except Exception as e:
@@ -89,4 +89,21 @@ def usuarionovo():
         cursor.close()
         conn.close()
 
+#DELETE
+@usuario_bp.route('/usuario/<id>', methods=["DELETE"])
+def usuarioexcluir(id):
+    try:
+        conn = connect_db()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
 
+        cursor.execute("DELETE FROM usuario WHERE idusuario = %s ", (id))
+
+        conn.commit()
+        resp = jsonify({"message": "Usuário excluído com sucesso!"})
+        resp.status_code = 200
+        return resp
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
