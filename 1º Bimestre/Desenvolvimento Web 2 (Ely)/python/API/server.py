@@ -1,11 +1,13 @@
 from flask import Flask, send_from_directory
 from usuarios import usuario_bp
+from login import login_bp
 import os
 app = Flask(__name__,
             static_url_path='',
             static_folder='static'
             )
 app.register_blueprint(usuario_bp)
+app.register_blueprint(login_bp)
 
 @app.route('/')
 def home():
