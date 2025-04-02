@@ -1,13 +1,23 @@
 import pymysql
 from db_config import connect_db
 from flask import jsonify
-from flask import flash, request, Blueprint
+from flask import flash, request, Blueprint, current_app
+import jwt
 
 usuario_bp = Blueprint("usuario", __name__)
 
 
 @usuario_bp.route('/usuario')
 def usuarios():
+    try:
+        token = request.headers.get('Authorization')
+        if not token or not token.startswith("Bearer "):
+            return {"success": False}, 401
+        dados = jwt.decode(token.split(" ")[1], current_app.config.get("SECRET_KEY"), algorithms=["HS256"])
+    except:
+            return {"success": False}, 401
+
+
     try:
         conn = connect_db()
         cursor = conn.cursor(pymysql.cursors.DictCursor)

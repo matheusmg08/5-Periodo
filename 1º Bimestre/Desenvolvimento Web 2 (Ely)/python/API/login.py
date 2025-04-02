@@ -1,7 +1,9 @@
 import pymysql
 from db_config import connect_db
 from flask import jsonify
-from flask import flash, request, Blueprint
+from flask import flash, request, Blueprint, current_app
+import jwt
+import datetime
 
 login_bp = Blueprint("login", __name__)
 
@@ -23,7 +25,9 @@ def login():
         if len(rows) == 0:
             resp = {"success": False}, 401
         else:
-            resp = {"sucess": True}, 200
+        
+            token = jwt.encode({"user": email, "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1)}, current_app.config.get("SECRET_KEY"), algorithm="HS256")
+            resp = {"success": True, "token": token}, 200
         return resp
 
     except Exception as e:
