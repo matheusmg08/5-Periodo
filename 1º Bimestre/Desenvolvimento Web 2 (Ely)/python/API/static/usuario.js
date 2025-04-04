@@ -82,7 +82,13 @@ function listar(){
     const lista = document.getElementById("lista");
     lista.innerHTML = "<tr><td colspan='5'>Carregando...</td></tr>";
 
-    fetch("http://127.0.0.1:5000/usuario")
+    fetch("http://127.0.0.1:5000/usuario",
+        {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem("token")
+            }
+        },
+    )
     .then(resp => resp.json())
     .then(dados => mostrar(dados));
 }
