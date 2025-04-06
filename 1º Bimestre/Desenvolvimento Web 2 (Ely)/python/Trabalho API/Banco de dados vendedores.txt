@@ -1,0 +1,16 @@
+CREATE DATABASE vendedores;
+
+USE vendedores;
+
+CREATE TABLE vendedor (
+	idvendedor INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	nome VARCHAR (50) NOT NULL,
+	telefone VARCHAR (20) NOT NULL,
+	email VARCHAR (50) NOT NULL,
+	cidade VARCHAR (50) NOT NULL
+);
+
+SELECT * from vendedor;
+
+INSERT INTO vendedor(nome, telefone, email, cidade)
+VALUES ('Matheus', '35998958454', 'matheus@gmail.com', 'São Sebastião do Paraíso'); 
