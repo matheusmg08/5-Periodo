@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	// Declarar as variáveis
-	precoUnitario := 50.0
+	precoUnitario := 100.0
 	quantidade := 6
 
 	// Calculando o valor total sem desconto

@@ -3,24 +3,14 @@ package main
 import "fmt"	
 
 func main() {
-	//saldo de Bill e Jeff em milhões
-	bill := 1850.0
-	jeff := 1650.0
-
-	//crescimento anual de Bill e Jeff 
-	crescimentoBill := 20.0
-	crescimentoJeff := 28.0
-
-	//contador de anos
+	bill := 1850
+	jeff := 1650
 	anos := 0
 
-	//Enquanto o saldo de Jeff for menor que o de Bill, continuamos o loop
 	for jeff < bill {
-		bill += crescimentoBill
-		jeff += crescimentoJeff
+		bill = bill + 20
+		jeff = jeff + 28
 		anos++	//incrementa o número de anos
 	}
-
-	fmt.Printf("Jeff ficará mais rico que Bill em %d anos.\n", anos)
-	fmt.Printf("Bill terá %.2f milhões e Jeff terá %.2f milhões.\n", bill, jeff)
+	fmt.Println("Vai demorar", anos, "anos para o Jeff ficar mais rico que o Bill.")
 }
