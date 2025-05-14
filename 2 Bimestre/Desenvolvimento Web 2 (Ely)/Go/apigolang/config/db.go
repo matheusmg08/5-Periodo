@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"fmt"
-	_ "github.com/go-sql-drive/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 const (
