@@ -1,6 +1,6 @@
 package models
 
-import "database/sql"
+//import "database/sql"
 
 type Usuario struct {
 	Idusuario int `json:"idusuario"`
